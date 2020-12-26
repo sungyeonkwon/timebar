@@ -4,7 +4,7 @@ Some time progress bars to look at on your terminal. Pretty much doing what [thi
 
 ## Installation
 
-### From crates.io
+### From [crates.io](https://crates.io/crates/timebar)
 
 ```
 cargo install timebar
@@ -53,7 +53,6 @@ You have:
 Have a good day!
 ```
 
-### TODO
+## TODO
 
-- [ ] Cache with environment variable
-- [ ] Add d-day feature
+- [ ] Cache life and dday with environment variable
