@@ -6,7 +6,7 @@ use std::time::UNIX_EPOCH;
 pub enum BarType {
   Year,
   Life,
-  Dday,
+  Timer,
 }
 
 impl FromStr for BarType {
@@ -18,7 +18,7 @@ impl FromStr for BarType {
     match &*lower_input {
       "year" => Ok(BarType::Year),
       "life" => Ok(BarType::Life),
-      "dday" => Ok(BarType::Dday),
+      "timer" => Ok(BarType::Timer),
       _ => Err(()),
     }
   }
