@@ -8,8 +8,16 @@ use std::time;
 use termion::{clear, color, cursor};
 
 pub fn life_handler() {
-    println!("Provide birthday and your expected lifespan. For example:");
-    println!("21/3/1985 85");
+    println!("Enter birthday and your expected lifespan.");
+    println!(
+        "For example: {}21/3/1985 85{}",
+        color::Fg(color::Green),
+        color::Fg(color::White)
+    );
+
+    println!(
+        "Please note that the order is date/month/year, and your lifespan is separated by a space."
+    );
 
     let mut args = String::new();
 

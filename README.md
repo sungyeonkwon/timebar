@@ -1,26 +1,20 @@
-\*Change name to timebar
-
 # Time Bar Cli
 
-Time progress bars to look at while you're stuck on your terminal, to remind you time is passing by.
+Some time progress bars to look at on your terminal. Pretty much doing what [this twitter bot](https://twitter.com/year_progress) does, just in terminal.
 
 ## Usage
 
-### Year progress bar
+### Year progress
 
-To get how your year's progress,
-`timebar year`
+To get this year's time bar, run `timebar year`.
 
 ```
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97.7%
 ```
 
-This is what [this twitter bot](https://twitter.com/year_progress) does, just in terminal.
-
 ### Life progress bar
 
-Checking in how your life timeline bar is doing..
-`timebar life` -> promts birthday and lifespan
+To get your life time bar, run `timebar life`. This prompts to enter your birthday and your expected lifespan.
 
 ```
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░ 57.7%
@@ -34,12 +28,7 @@ You have:
 left for your life. Have a good day!
 ```
 
-(-> save to environment variable)
-To set your info again,
-`timebar lifespan` -> prompts birthday lifespan (takes integer) Age 72
-life expectancy at birth was 71 years
-`date-month-year` order.
+### TODO
 
-### Get help
-
-`./timebar -h`
+- [ ] Cache with environment variable
+- [ ] Add d-day feature
