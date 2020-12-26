@@ -6,6 +6,7 @@ use std::time::UNIX_EPOCH;
 pub enum BarType {
   Year,
   Life,
+  Dday,
 }
 
 impl FromStr for BarType {
@@ -13,12 +14,12 @@ impl FromStr for BarType {
 
   fn from_str(input: &str) -> Result<BarType, Self::Err> {
     let lower_input = input.to_lowercase();
-    if let "year" = &*lower_input {
-      Ok(BarType::Year)
-    } else if let "life" = &*lower_input {
-      Ok(BarType::Life)
-    } else {
-      Err(())
+
+    match &*lower_input {
+      "year" => Ok(BarType::Year),
+      "life" => Ok(BarType::Life),
+      "dday" => Ok(BarType::Dday),
+      _ => Err(()),
     }
   }
 }
