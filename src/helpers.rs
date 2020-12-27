@@ -113,7 +113,7 @@ fn display_info(start: u64, end: u64, lifespan: Option<u32>) {
     println!("{} in weeks", info.weeks);
     println!("{} in days", info.days);
   } else {
-    println!("\nTime is ticking... You have:");
+    println!("\nTime is ticking... You have:\n");
   }
   print!("{}", color::Fg(color::Green));
   println!("{} in hours", info.hours);

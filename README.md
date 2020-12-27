@@ -61,6 +61,7 @@ To get a timer bar, run `timebar timer`. This prompts to enter duration.
 ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0.6%
 
 Time is ticking... You have:
+
 0 in hours
 10 in minutes
 616 in seconds.
