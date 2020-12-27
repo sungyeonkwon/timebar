@@ -6,12 +6,7 @@ use std::process;
 use termion::{clear, color, cursor};
 
 pub fn timer_handler() {
-  println!("Enter timer duration in the format of hour:minute:second.");
-  println!(
-    "For example: {}0:30:0{}",
-    color::Fg(color::Green),
-    color::Fg(color::White)
-  );
+  print_timer_intro();
 
   let mut args = String::new();
   stdin().read_line(&mut args).expect("Failed to read line");
@@ -69,4 +64,13 @@ impl TimerConfig {
       seconds,
     })
   }
+}
+
+fn print_timer_intro() {
+  println!("Enter timer duration in the format of hour:minute:second.");
+  println!(
+    "For example: {}0:30:0{}",
+    color::Fg(color::Green),
+    color::Fg(color::White)
+  );
 }

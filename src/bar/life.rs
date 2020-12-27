@@ -8,13 +8,7 @@ use std::process;
 use termion::{clear, color, cursor};
 
 pub fn life_handler() {
-    println!("Enter birthday and your expected lifespan.");
-    println!(
-        "For example: {}21/3/1985 85{}",
-        color::Fg(color::Green),
-        color::Fg(color::White)
-    );
-    println!("Note that the order is date/month/year, and your lifespan is separated by a space.");
+    print_life_intro();
 
     let mut args = String::new();
     stdin().read_line(&mut args).expect("Failed to read line");
@@ -92,4 +86,14 @@ impl LifeConfig {
             lifespan,
         })
     }
+}
+
+fn print_life_intro() {
+    println!("Enter birthday and your expected lifespan.");
+    println!(
+        "For example: {}21/3/1985 85{}",
+        color::Fg(color::Green),
+        color::Fg(color::White)
+    );
+    println!("Note that the order is date/month/year, and your lifespan is separated by a space.");
 }
