@@ -15,7 +15,7 @@ pub fn year_handler() {
 
     let percentage = get_percentage(start, end);
     let message = get_message(percentage);
-    print_bar(percentage);
+    print_bar(&percentage);
     println!("{}", message);
 }
 

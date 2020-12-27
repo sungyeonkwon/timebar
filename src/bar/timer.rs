@@ -50,9 +50,18 @@ impl TimerConfig {
       return Err(TimebarError::InvalidDurationFormat);
     }
 
-    let hours = string_to_u32(timer_config[0].clone().trim()).unwrap();
-    let minutes = string_to_u32(timer_config[1].clone().trim()).unwrap();
-    let seconds = string_to_u32(timer_config[2].clone().trim()).unwrap();
+    let hours = string_to_u32(timer_config[0].clone().trim()).unwrap_or_else(|err| {
+      eprintln!("Problem parsing arguments: {}", err);
+      process::exit(1);
+    });
+    let minutes = string_to_u32(timer_config[1].clone().trim()).unwrap_or_else(|err| {
+      eprintln!("Problem parsing arguments: {}", err);
+      process::exit(1);
+    });
+    let seconds = string_to_u32(timer_config[2].clone().trim()).unwrap_or_else(|err| {
+      eprintln!("Problem parsing arguments: {}", err);
+      process::exit(1);
+    });
 
     Ok(TimerConfig {
       hours,

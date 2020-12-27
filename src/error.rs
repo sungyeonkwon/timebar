@@ -19,6 +19,7 @@ impl fmt::Display for TimebarError {
             InvalidInput(input) => {
                 write!(f, "This part of the input could not be parsed: '{}'", input)
             }
+            IoError(err) => write!(f, "IO error: {}", err),
             InvalidDateFormat => write!(
                 f,
                 "Please enter a date in the correct format of date/month/year."
@@ -29,7 +30,6 @@ impl fmt::Display for TimebarError {
             ),
             InvalidCommand => write!(f, "Sorry, the command does not exist."),
             InvalidInteger => write!(f, "Must provide a positive integer."),
-            IoError(err) => write!(f, "IO error: {}", err),
         }
     }
 }

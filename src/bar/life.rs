@@ -68,10 +68,22 @@ impl LifeConfig {
             return Err(TimebarError::InvalidDateFormat);
         }
 
-        let day = string_to_u32(birthday[0].clone().trim()).unwrap();
-        let month = string_to_u32(birthday[1].clone().trim()).unwrap();
-        let year = string_to_u32(birthday[2].clone().trim()).unwrap();
-        let lifespan = string_to_u32(lifespan.clone().trim()).unwrap();
+        let day = string_to_u32(birthday[0].clone().trim()).unwrap_or_else(|err| {
+            eprintln!("Problem parsing arguments: {}", err);
+            process::exit(1);
+        });
+        let month = string_to_u32(birthday[1].clone().trim()).unwrap_or_else(|err| {
+            eprintln!("Problem parsing arguments: {}", err);
+            process::exit(1);
+        });
+        let year = string_to_u32(birthday[2].clone().trim()).unwrap_or_else(|err| {
+            eprintln!("Problem parsing arguments: {}", err);
+            process::exit(1);
+        });
+        let lifespan = string_to_u32(lifespan.clone().trim()).unwrap_or_else(|err| {
+            eprintln!("Problem parsing arguments: {}", err);
+            process::exit(1);
+        });
 
         Ok(LifeConfig {
             day,

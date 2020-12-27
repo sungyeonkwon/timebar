@@ -53,8 +53,20 @@ You have:
 Have a good day!
 ```
 
+### Timer progress
+
+To get a timer bar, run `timebar timer`. This prompts to enter duration.
+
+```
+▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0.6%
+
+Time is ticking... You have:
+0 in hours
+10 in minutes
+616 in seconds.
+```
+
 ## TODO
 
-- [ ] Prevent bar length change
-- [ ] Add d-day feature
+- [ ] Add a d-day feature
 - [ ] Cache life and dday with environment variable

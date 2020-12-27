@@ -58,17 +58,6 @@ pub fn get_percentage(start: u64, end: u64) -> f64 {
   passed as f64 / duration as f64 * 100.0
 }
 
-pub fn print_bar(percentage: f64) {
-  let filled = (percentage / PERCENTAGE_SCALAR).round() as usize;
-  let empty = ((100.0 - percentage) / PERCENTAGE_SCALAR).round() as usize;
-  println!(
-    "\n{}{} {:.1}%",
-    "▓".repeat(filled),
-    "░".repeat(empty),
-    percentage,
-  );
-}
-
 // Called every 1 second to update the display info.
 pub fn draw(display: Display) {
   loop {
@@ -86,13 +75,30 @@ pub fn draw(display: Display) {
   }
 }
 
+pub fn print_bar(percentage: &f64) {
+  let (filled, empty) = get_filled_empty(&percentage);
+  println!(
+    "\n{}{} {:.1}%",
+    "▓".repeat(filled),
+    "░".repeat(empty),
+    percentage,
+  );
+}
+
+pub fn get_filled_empty(percentage: &f64) -> (usize, usize) {
+  let filled = (percentage / PERCENTAGE_SCALAR).ceil() as usize;
+  let empty = ((100.0 - percentage) / PERCENTAGE_SCALAR).ceil() as usize;
+
+  (filled, empty)
+}
+
 fn display_info(start: u64, end: u64, lifespan: Option<u32>) {
   let percentage = get_percentage(start, end);
   let is_life = lifespan.is_some();
   let info = calculate_time_left(end, is_life).unwrap();
 
   print!("{}", color::Fg(color::White));
-  print_bar(percentage);
+  print_bar(&percentage);
 
   if is_life {
     println!(
