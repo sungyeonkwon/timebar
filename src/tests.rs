@@ -7,5 +7,5 @@ fn it_works() {
 #[should_panic(expected = "Must provide a positive integer")]
 fn handles_negative_integer() {
   let negative_input = String::from("-30");
-  crate::bar::life::string_to_u32(&negative_input);
+  crate::helpers::string_to_u32(&negative_input);
 }
