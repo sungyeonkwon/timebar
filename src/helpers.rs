@@ -12,6 +12,7 @@ pub enum BarType {
   Year,
   Life,
   Timer,
+  Dday,
 }
 
 impl FromStr for BarType {
@@ -24,6 +25,7 @@ impl FromStr for BarType {
       "year" => Ok(BarType::Year),
       "life" => Ok(BarType::Life),
       "timer" => Ok(BarType::Timer),
+      "dday" => Ok(BarType::Dday),
       _ => Err(TimebarError::InvalidCommand),
     }
   }

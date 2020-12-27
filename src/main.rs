@@ -1,5 +1,6 @@
 use std::env;
 use std::str::FromStr;
+use timebar::bar::dday::dday_handler;
 use timebar::bar::life::life_handler;
 use timebar::bar::timer::timer_handler;
 use timebar::bar::year::year_handler;
@@ -15,6 +16,7 @@ fn main() {
             BarType::Year => year_handler(),
             BarType::Life => life_handler(),
             BarType::Timer => timer_handler(),
+            BarType::Dday => dday_handler(),
         },
         Err(_error) => println!("{}", _error.to_string()),
     };

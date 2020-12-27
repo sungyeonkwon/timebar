@@ -69,5 +69,4 @@ Time is ticking... You have:
 
 ## TODO
 
-- [ ] Add a d-day feature
 - [ ] Cache life and dday with environment variable
