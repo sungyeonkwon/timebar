@@ -1,4 +1,5 @@
 extern crate termion;
+use crate::error::{TimebarError, TimebarResult};
 use crate::helpers::Display;
 use crate::helpers::{draw, string_to_u32};
 use chrono::NaiveDate;
@@ -49,22 +50,22 @@ struct LifeConfig {
 }
 
 impl LifeConfig {
-    pub fn new(args: Vec<&str>) -> Result<LifeConfig, &'static str> {
+    pub fn new(args: Vec<&str>) -> TimebarResult<LifeConfig> {
         let mut iterator = args.into_iter();
         let birthday = match iterator.next() {
             Some(arg) => arg,
-            None => return Err("Couldn't get a valid birthday"),
+            None => return Err(TimebarError::InvalidInput("birthday".to_string())),
         };
 
         let lifespan = match iterator.next() {
             Some(arg) => arg,
-            None => return Err("Couldn't get a valid lifespan"),
+            None => return Err(TimebarError::InvalidInput("lifespan".to_string())),
         };
 
         let birthday: Vec<&str> = birthday.split('/').collect();
 
         if birthday.len() != 3 {
-            panic!("Birthday and lifespan must be in a correct format");
+            return Err(TimebarError::InvalidDateFormat);
         }
 
         let day = string_to_u32(birthday[0].clone().trim()).unwrap();

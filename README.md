@@ -55,8 +55,6 @@ Have a good day!
 
 ## TODO
 
-- [ ] Error gracefully
 - [ ] Prevent bar length change
-
 - [ ] Add d-day feature
 - [ ] Cache life and dday with environment variable

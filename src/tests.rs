@@ -1,11 +1,15 @@
+use crate::error::TimebarError;
+
 #[test]
 fn it_works() {
   assert_eq!(2 + 2, 4);
 }
 
 #[test]
-#[should_panic(expected = "Must provide a positive integer")]
 fn handles_negative_integer() {
   let negative_input = String::from("-30");
-  crate::helpers::string_to_u32(&negative_input);
+  let result = crate::helpers::string_to_u32(&negative_input);
+  let expected = Err(TimebarError::InvalidInteger);
+
+  assert_eq!(expected, result);
 }

@@ -1,3 +1,4 @@
+use crate::error::{TimebarError, TimebarResult};
 use crate::helpers::Display;
 use crate::helpers::{draw, get_current_timestamp, string_to_u32};
 use std::io::stdin;
@@ -36,17 +37,17 @@ struct TimerConfig {
 }
 
 impl TimerConfig {
-  pub fn new(args: Vec<&str>) -> Result<TimerConfig, &'static str> {
+  pub fn new(args: Vec<&str>) -> TimebarResult<TimerConfig> {
     let mut iterator = args.into_iter();
     let timer = match iterator.next() {
       Some(arg) => arg,
-      None => return Err("Couldn't get a valid duration"),
+      None => return Err(TimebarError::InvalidInput("duration".to_string())),
     };
 
     let timer_config: Vec<&str> = timer.split(':').collect();
 
     if timer_config.len() != 3 {
-      panic!("Duration must be in a correct format");
+      return Err(TimebarError::InvalidDurationFormat);
     }
 
     let hours = string_to_u32(timer_config[0].clone().trim()).unwrap();

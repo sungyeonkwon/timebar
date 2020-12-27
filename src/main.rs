@@ -8,11 +8,14 @@ use timebar::helpers::BarType;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let bar = BarType::from_str(&args[1]).unwrap();
+    let bar = BarType::from_str(&args[1]);
 
     match bar {
-        BarType::Year => year_handler(),
-        BarType::Life => life_handler(),
-        BarType::Timer => timer_handler(),
+        Ok(bar) => match bar {
+            BarType::Year => year_handler(),
+            BarType::Life => life_handler(),
+            BarType::Timer => timer_handler(),
+        },
+        Err(_error) => println!("{}", _error.to_string()),
     };
 }

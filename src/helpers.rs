@@ -1,3 +1,4 @@
+use crate::error::{TimebarError, TimebarResult};
 use crate::PERCENTAGE_SCALAR;
 use std::process;
 use std::str::FromStr;
@@ -14,16 +15,16 @@ pub enum BarType {
 }
 
 impl FromStr for BarType {
-  type Err = ();
+  type Err = TimebarError;
 
-  fn from_str(input: &str) -> Result<BarType, Self::Err> {
+  fn from_str(input: &str) -> TimebarResult<BarType> {
     let lower_input = input.to_lowercase();
 
     match &*lower_input {
       "year" => Ok(BarType::Year),
       "life" => Ok(BarType::Life),
       "timer" => Ok(BarType::Timer),
-      _ => Err(()),
+      _ => Err(TimebarError::InvalidCommand),
     }
   }
 }
@@ -33,10 +34,10 @@ pub enum Display {
   Timer { start: u64, end: u64 },
 }
 
-pub fn string_to_u32(trimmed: &str) -> Result<u32, &'static str> {
+pub fn string_to_u32(trimmed: &str) -> TimebarResult<u32> {
   match trimmed.parse::<u32>() {
     Ok(i) => Ok(i),
-    Err(error) => panic!("Must provide a positive integer: {}", error),
+    Err(_error) => Err(TimebarError::InvalidInteger),
   }
 }
 
@@ -61,7 +62,7 @@ pub fn print_bar(percentage: f64) {
   let filled = (percentage / PERCENTAGE_SCALAR).round() as usize;
   let empty = ((100.0 - percentage) / PERCENTAGE_SCALAR).round() as usize;
   println!(
-    "{}{} {:.1}%",
+    "\n{}{} {:.1}%",
     "▓".repeat(filled),
     "░".repeat(empty),
     percentage,
@@ -90,7 +91,7 @@ fn display_info(start: u64, end: u64, lifespan: Option<u32>) {
   let is_life = lifespan.is_some();
   let info = calculate_time_left(end, is_life).unwrap();
 
-  println!("{}", color::Fg(color::White));
+  print!("{}", color::Fg(color::White));
   print_bar(percentage);
 
   if is_life {
@@ -108,8 +109,7 @@ fn display_info(start: u64, end: u64, lifespan: Option<u32>) {
   } else {
     println!("\nTime is ticking... You have:");
   }
-
-  println!("{}", color::Fg(color::Green));
+  print!("{}", color::Fg(color::Green));
   println!("{} in hours", info.hours);
   println!("{} in minutes", info.minutes);
   println!(
@@ -120,17 +120,17 @@ fn display_info(start: u64, end: u64, lifespan: Option<u32>) {
   );
 
   if is_life {
-    println!("{}", color::Fg(color::White));
-    println!("Have a good day!");
+    print!("{}", color::Fg(color::White));
+    println!("\nHave a good day!");
   }
 }
 
-fn calculate_time_left(end: u64, is_life: bool) -> Result<TimeLeft, &'static i32> {
+fn calculate_time_left(end: u64, is_life: bool) -> TimebarResult<TimeLeft> {
   let now = get_current_timestamp();
 
   if end <= now {
     if is_life {
-      println!("Your expected death doesn't seem to be in the future");
+      return Err(TimebarError::InvalidInput("lifespan".to_string()));
     } else {
       println!(
         "{}Time's up! Done.{}",
