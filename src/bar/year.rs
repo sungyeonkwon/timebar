@@ -12,6 +12,11 @@ pub fn year_handler() {
         .and_hms(23, 59, 59)
         .timestamp() as u64; // 1 sec difference
 
+    // Display info
+    display_year(start, end);
+}
+
+fn display_year(start: u64, end: u64) {
     let percentage = get_percentage(start, end);
     let message = get_message(percentage);
     print_bar(&percentage);

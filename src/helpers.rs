@@ -2,28 +2,31 @@ use crate::error::{TimebarError, TimebarResult};
 use crate::PERCENTAGE_SCALAR;
 use std::process;
 use std::str::FromStr;
-use std::thread;
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
-use termion::{clear, color, cursor};
+use std::time::{SystemTime, UNIX_EPOCH};
+use termion::color;
 
-pub enum BarType {
+pub enum CommandType {
   Year,
   Life,
   Timer,
   Dday,
+  List,
+  Remove,
 }
 
-impl FromStr for BarType {
+impl FromStr for CommandType {
   type Err = TimebarError;
 
-  fn from_str(input: &str) -> TimebarResult<BarType> {
+  fn from_str(input: &str) -> TimebarResult<CommandType> {
     let lower_input = input.to_lowercase();
 
     match &*lower_input {
-      "year" => Ok(BarType::Year),
-      "life" => Ok(BarType::Life),
-      "timer" => Ok(BarType::Timer),
-      "dday" => Ok(BarType::Dday),
+      "year" => Ok(CommandType::Year),
+      "life" => Ok(CommandType::Life),
+      "timer" => Ok(CommandType::Timer),
+      "dday" => Ok(CommandType::Dday),
+      "ls" => Ok(CommandType::List),
+      "rm" => Ok(CommandType::Remove),
       _ => Err(TimebarError::InvalidCommand),
     }
   }
@@ -39,6 +42,20 @@ pub fn string_to_u32(trimmed: &str) -> TimebarResult<u32> {
     Ok(i) => Ok(i),
     Err(_error) => Err(TimebarError::InvalidInteger),
   }
+}
+
+pub fn limit_name(name: &str) -> String {
+  if name.len() <= 12 {
+    return name.to_string();
+  }
+
+  let modified_name = &name[0..12];
+  println!(
+    "Name must be less than 12 characters. It will be named as: {}",
+    &modified_name
+  );
+
+  modified_name.to_string()
 }
 
 pub fn get_current_timestamp() -> u64 {
@@ -58,23 +75,6 @@ pub fn get_percentage(start: u64, end: u64) -> f64 {
   passed as f64 / duration as f64 * 100.0
 }
 
-// Called every 1 second to update the display info.
-pub fn draw(display: Display) {
-  loop {
-    match display {
-      Display::Life {
-        start,
-        end,
-        lifespan,
-      } => display_info(start, end, Some(lifespan)),
-      Display::Timer { start, end } => display_info(start, end, None),
-    }
-
-    thread::sleep(Duration::from_millis(1000));
-    println!("\n{}{}{}", cursor::Show, clear::All, cursor::Goto(1, 1));
-  }
-}
-
 pub fn print_bar(percentage: &f64) {
   let (filled, empty) = get_filled_empty(&percentage);
   println!(
@@ -92,50 +92,15 @@ pub fn get_filled_empty(percentage: &f64) -> (usize, usize) {
   (filled, empty)
 }
 
-fn display_info(start: u64, end: u64, lifespan: Option<u32>) {
-  let percentage = get_percentage(start, end);
-  let is_life = lifespan.is_some();
-  let info = calculate_time_left(end, is_life).unwrap();
-
-  print!("{}", color::Fg(color::White));
-  print_bar(&percentage);
-
-  if is_life {
-    println!(
-      "\nYou expect to exist on this planet for {} years.",
-      lifespan.unwrap_or(0)
-    );
-    println!("\nYou have:");
-
-    println!("{}", color::Fg(color::Green));
-    println!("{} in years", info.years);
-    println!("{} in months", info.months);
-    println!("{} in weeks", info.weeks);
-    println!("{} in days", info.days);
-  } else {
-    println!("\nTime is ticking... You have:\n");
-  }
-  print!("{}", color::Fg(color::Green));
-  println!("{} in hours", info.hours);
-  println!("{} in minutes", info.minutes);
-  println!(
-    "{}{}{} in seconds.",
-    color::Fg(color::Yellow),
-    info.seconds,
-    color::Fg(color::Green)
-  );
-
-  if is_life {
-    print!("{}", color::Fg(color::White));
-    println!("\nHave a good day!");
-  }
+pub fn seconds_to_days(seconds: u64) -> u64 {
+  seconds / 60 / 60 / 24
 }
 
-fn calculate_time_left(end: u64, is_life: bool) -> TimebarResult<TimeLeft> {
+pub fn get_time_left(end: u64, display_type: String) -> TimebarResult<TimeLeft> {
   let now = get_current_timestamp();
 
   if end <= now {
-    if is_life {
+    if display_type == "life" {
       return Err(TimebarError::InvalidInput("lifespan".to_string()));
     } else {
       println!(
@@ -168,12 +133,12 @@ fn calculate_time_left(end: u64, is_life: bool) -> TimebarResult<TimeLeft> {
 }
 
 #[derive(Copy, Clone)]
-struct TimeLeft {
-  years: u32,
-  months: u32,
-  weeks: u32,
-  days: u32,
-  hours: u32,
-  minutes: u32,
-  seconds: u32,
+pub struct TimeLeft {
+  pub years: u32,
+  pub months: u32,
+  pub weeks: u32,
+  pub days: u32,
+  pub hours: u32,
+  pub minutes: u32,
+  pub seconds: u32,
 }

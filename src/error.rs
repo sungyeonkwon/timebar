@@ -2,13 +2,14 @@ use std::error::Error;
 use std::fmt;
 use std::io;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum TimebarError {
     InvalidInput(String),
     IoError(String),
     InvalidInteger,
     InvalidCommand,
     InvalidDateFormat,
+    InvalidDateRange,
     InvalidDurationFormat,
 }
 
@@ -20,6 +21,10 @@ impl fmt::Display for TimebarError {
                 write!(f, "This part of the input could not be parsed: '{}'", input)
             }
             IoError(err) => write!(f, "IO error: {}", err),
+            InvalidDateRange => write!(
+                f,
+                "Please check the start date or the end date, to correct the date range. Start date should be in the past or now, and end date should be in the future."
+            ),
             InvalidDateFormat => write!(
                 f,
                 "Please enter a date in the correct format of date/month/year."
@@ -28,7 +33,7 @@ impl fmt::Display for TimebarError {
                 f,
                 "Please enter a duration in the correct format of hours:minutes:seconds."
             ),
-            InvalidCommand => write!(f, "Sorry, the command does not exist."),
+            InvalidCommand => write!(f, "Sorry, this is not a valid command."),
             InvalidInteger => write!(f, "Must provide a positive integer."),
         }
     }

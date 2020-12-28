@@ -1,7 +1,11 @@
 use crate::error::{TimebarError, TimebarResult};
-use crate::helpers::{draw, get_current_timestamp, string_to_u32, Display};
+use crate::helpers::{
+  get_current_timestamp, get_percentage, get_time_left, print_bar, string_to_u32,
+};
 use std::io::stdin;
 use std::process;
+use std::thread;
+use std::time::Duration;
 use termion::{clear, color, cursor};
 
 pub fn timer_handler() {
@@ -21,7 +25,7 @@ pub fn timer_handler() {
 
   // Prepare display
   println!("\n{}{}", clear::All, cursor::Goto(1, 1));
-  draw(Display::Timer { start, end });
+  display_timer(start, end);
 }
 
 struct TimerConfig {
@@ -71,5 +75,32 @@ fn print_timer_intro() {
     "For example: {}0:30:0{}",
     color::Fg(color::Green),
     color::Fg(color::White)
+  );
+}
+
+fn display_timer(start: u64, end: u64) {
+  println!("\n{}{}", clear::All, cursor::Goto(1, 1));
+  loop {
+    draw(start, end, "timer");
+    thread::sleep(Duration::from_millis(1000));
+    println!("\n{}{}{}", cursor::Show, clear::All, cursor::Goto(1, 1))
+  }
+}
+
+fn draw(start: u64, end: u64, display_type: &str) {
+  let percentage = get_percentage(start, end);
+  let info = get_time_left(end, display_type.to_string()).unwrap();
+
+  print!("{}", color::Fg(color::White));
+  print_bar(&percentage);
+  println!("\nTime is ticking... You have:\n");
+  print!("{}", color::Fg(color::Green));
+  println!("{} in hours", info.hours);
+  println!("{} in minutes", info.minutes);
+  println!(
+    "{}{}{} in seconds.",
+    color::Fg(color::Yellow),
+    info.seconds,
+    color::Fg(color::Green),
   );
 }

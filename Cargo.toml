@@ -2,7 +2,7 @@
 name = "timebar"
 description = "Cli to get some time progress bars on a terminal."
 license = "MIT"
-version = "0.1.4"
+version = "0.2.0"
 authors = ["Sung Kwon <mailtosungkwon@gmail.com>"]
 edition = "2018"
 readme = "README.md"
@@ -13,3 +13,6 @@ categories = ["command-line-utilities"]
 [dependencies]
 chrono = "0.4"
 termion = "1.5.5"
+preferences = "1.1.0"
+serde_derive = "0.9.6"
+serde = "0.9.6"
