@@ -1,7 +1,6 @@
 extern crate termion;
 use crate::error::{TimebarError, TimebarResult};
-use crate::helpers::Display;
-use crate::helpers::{draw, string_to_u32};
+use crate::helpers::{draw, string_to_u32, Display};
 use chrono::NaiveDate;
 use std::io::stdin;
 use std::process;

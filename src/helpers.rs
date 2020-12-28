@@ -3,9 +3,7 @@ use crate::PERCENTAGE_SCALAR;
 use std::process;
 use std::str::FromStr;
 use std::thread;
-use std::time;
-use std::time::SystemTime;
-use std::time::UNIX_EPOCH;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use termion::{clear, color, cursor};
 
 pub enum BarType {
@@ -72,7 +70,7 @@ pub fn draw(display: Display) {
       Display::Timer { start, end } => display_info(start, end, None),
     }
 
-    thread::sleep(time::Duration::from_millis(1000));
+    thread::sleep(Duration::from_millis(1000));
     println!("\n{}{}{}", cursor::Show, clear::All, cursor::Goto(1, 1));
   }
 }

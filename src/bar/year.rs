@@ -1,6 +1,5 @@
 use crate::helpers::{get_current_timestamp, get_percentage, print_bar};
-use chrono::Datelike;
-use chrono::{NaiveDate, NaiveDateTime};
+use chrono::{Datelike, NaiveDate, NaiveDateTime};
 use std::fmt;
 
 pub fn year_handler() {

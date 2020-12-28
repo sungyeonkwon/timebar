@@ -1,6 +1,5 @@
 use crate::error::{TimebarError, TimebarResult};
-use crate::helpers::Display;
-use crate::helpers::{draw, get_current_timestamp, string_to_u32};
+use crate::helpers::{draw, get_current_timestamp, string_to_u32, Display};
 use std::io::stdin;
 use std::process;
 use termion::{clear, color, cursor};
