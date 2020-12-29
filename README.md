@@ -2,6 +2,8 @@
 
 A tiny cli to get some time progress bars to look at on your terminal. Pretty much an extension of what [this twitter bot](https://twitter.com/year_progress) is doing, reminding you that time is passing by 😱
 
+![Life of Brian](life-of-brian.gif)
+
 ## Installation
 
 ### From [crates.io](https://crates.io/crates/timebar)
@@ -91,7 +93,7 @@ To save an entry, run `timebar life -s` for a life and `timebar dday -s` for a d
 
 To get a list of previously saved d-days and lives, run `timebar ls`.
 
-```bash
+```
 TYPE        | NAME        | DURATION
 life        | Brian       | 101 years
 d-day       | big-trip    | 28/1/1999 - 29/12/2023
