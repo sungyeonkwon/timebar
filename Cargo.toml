@@ -1,13 +1,13 @@
 [package]
 name = "timebar"
-description = "Cli to get some time progress bars on a terminal."
+description = "CLI for time progress bars on your terminal."
 license = "MIT"
-version = "0.2.1"
+version = "0.2.3"
 authors = ["Sung Kwon <mailtosungkwon@gmail.com>"]
 edition = "2018"
 readme = "README.md"
 repository = "https://github.com/sungyeonkwon/timebar"
-keywords = ["timebar", "progress", "timer", "cli", "command-line"]
+keywords = ["time", "progress", "timer", "cli", "command-line"]
 categories = ["command-line-utilities"]
 
 [dependencies]

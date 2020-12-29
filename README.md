@@ -73,7 +73,7 @@ Time is ticking... You have:
 
 ### D-day progress
 
-To get a d-day progress bar, run `timebar dday`
+To get a d-day progress bar, run `timebar dday`. This prompts to enter a name and the dates.
 
 ```
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░ 74.1%
@@ -83,7 +83,7 @@ graduation: 541 days are gone, 189 days to go!
 
 ## Manage entries
 
-Life and d-days can be saved. Data is written to flat files under the active user's home directory (See [preferences](https://docs.rs/preferences/1.1.0/preferences/) library).
+Life and d-day can be saved. Data is written to flat files under the active user's home directory (See [preferences](https://docs.rs/preferences/1.1.0/preferences/) library).
 
 #### Save
 
@@ -113,7 +113,7 @@ To remove all saved data, run `timebar rm -a`.
 | `year`  | Displays the current year's progress.                     |             |                                             |
 | `life`  | Displays someone's lifetime progress, given a user input. | -s, {NAME}  |      `{NAME} {BIRTH_DATE} {LIFESPAN}`       |
 | `timer` | Displays a timer progress, given a user input.            |             |                  `{TIME}`                   |
-| `dday`  | Displays a d-day progress, given a user input.            | -s, {NAME}  | `{NAME} {START_DATE} (Optional:{END_DATE})` |
+| `dday`  | Displays a d-day progress, given a user input.            | -s, {NAME}  | `{NAME} {END_DATE} (Optional:{START_DATE})` |
 | `ls`    | Lists all saved d-days and lives.                         |             |                                             |
 | `rm`    | Removes saved d-days or lives.                            | -a, {NAME}  |                                             |
 
