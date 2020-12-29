@@ -1,6 +1,6 @@
-# Time Bar Cli
+# Timebar CLI
 
-A tiny cli to get some time progress bars to look at on your terminal. Pretty much an extension of what [this twitter bot](https://twitter.com/year_progress) is doing, reminding you that time is passing by 😱
+A CLI to get some time progress bars to look at on your terminal. Pretty much an extension of what [this twitter bot](https://twitter.com/year_progress) is doing, reminding you that time is passing by 😱
 
 ![Life of Brian](life-of-brian.gif)
 
@@ -62,13 +62,13 @@ Have a good day!
 To get a timer progress bar, run `timebar timer`. This prompts to enter duration.
 
 ```
-▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0.6%
+▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 1.5%
 
 Time is ticking... You have:
 
 0 in hours
-10 in minutes
-616 in seconds.
+5 in minutes
+325 in seconds.
 ```
 
 ### D-day progress
@@ -76,9 +76,9 @@ Time is ticking... You have:
 To get a d-day progress bar, run `timebar dday`
 
 ```
-▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0.6%
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░ 74.1%
 
-launch: 361 days are gone, 364 days to go!
+graduation: 541 days are gone, 189 days to go!
 ```
 
 ## Manage entries
