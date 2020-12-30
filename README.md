@@ -1,6 +1,6 @@
 # Timebar CLI
 
-A CLI to get some time progress bars to look at on your terminal. Pretty much an extension of what [this twitter bot](https://twitter.com/year_progress) is doing, reminding you that time is passing by 😱
+A CLI to get some time progress bars to ponder over in your terminal. Pretty much an extension of what [this twitter bot](https://twitter.com/year_progress) is doing, reminding you that time is passing by 😱
 
 ![Life of Brian](life-of-brian.gif)
 
