@@ -2,7 +2,7 @@
 name = "timebar"
 description = "CLI for time progress bars on your terminal."
 license = "MIT"
-version = "0.2.3"
+version = "0.2.4"
 authors = ["Sung Kwon <mailtosungkwon@gmail.com>"]
 edition = "2018"
 readme = "README.md"

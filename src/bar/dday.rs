@@ -76,7 +76,7 @@ fn display_dday(dday: DdayConfig) {
 fn display_by_name(option: &str) {
   let existing_ddays = Vec::<DdayConfig>::load(&APP_INFO, PREF_DDAY).unwrap();
 
-  // If there's a save entry with the name, display the result
+  // If there's a saved entry with the name, display the result
   for dday in existing_ddays {
     if dday.name == option {
       display_dday(dday);

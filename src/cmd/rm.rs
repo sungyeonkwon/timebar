@@ -2,25 +2,19 @@ use crate::bar::dday::DdayConfig;
 use crate::bar::life::LifeConfig;
 use crate::{APP_INFO, PREF_DDAY, PREF_LIFE};
 use preferences::Preferences;
+use std::process;
 
 pub fn remove_handler(args: Vec<String>) {
-  // TODO: error handlining: args length
+  if args.len() != 3 {
+    // TODO: Re-prompt the d-day flow or use error object
+    println!("Please enter valid arguments for rm command.");
+    process::exit(1);
+  }
 
   let option = &*args[2];
   match option {
     "-a" => remove_all(),
-    "life" => remove_life(true),
     _ => remove_name(option),
-  }
-}
-
-fn remove_life(print_message: bool) {
-  let empty: Vec<LifeConfig> = Vec::new();
-  let saved = empty.save(&APP_INFO, PREF_LIFE);
-  assert!(saved.is_ok());
-
-  if print_message {
-    println!("Successfully removed life entry");
   }
 }
 
@@ -52,14 +46,21 @@ fn remove_name(option: &str) {
   }
 }
 
-fn remove_all() {
-  // Remove d-day entries
+fn remove_lives() {
+  let empty: Vec<LifeConfig> = Vec::new();
+  let saved = empty.save(&APP_INFO, PREF_LIFE);
+  assert!(saved.is_ok());
+}
+
+fn remove_ddays() {
   let empty: Vec<DdayConfig> = Vec::new();
   let saved = empty.save(&APP_INFO, PREF_DDAY);
   assert!(saved.is_ok());
+}
 
-  // Remove life entry
-  remove_life(false);
+fn remove_all() {
+  remove_ddays();
+  remove_lives();
 
   println!("Removed all of the saved entires in timebar.")
 }

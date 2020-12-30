@@ -30,7 +30,7 @@ pub fn life_handler(args: Vec<String>) {
 fn display_by_name(option: &str) {
     let existing_lives = Vec::<LifeConfig>::load(&APP_INFO, PREF_LIFE).unwrap();
 
-    // If there's a save entry with the name, display the result
+    // If there's a saved entry with the name, display the result
     for life in existing_lives {
         if life.name == option {
             let (start, end, lifespan) = config_to_draw_input(life.clone());
